@@ -59,7 +59,7 @@ angular.module('starter')
           reject(result.data.msg);
         }
       });*/
-      
+
     });
   };
  
@@ -78,6 +78,7 @@ angular.module('starter')
 			   }
 		  }, function errorCallback(response) {
 			     console.log("Failure");
+           console.log(response.data);
           	reject(response.data);
 		  });
 

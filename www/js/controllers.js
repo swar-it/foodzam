@@ -14,7 +14,7 @@ angular.module('starter')
     }, function(errMsg) {
       var alertPopup = $ionicPopup.alert({
         title: 'Login failed',
-        template: errMsg
+        template: 'Please try again'
       });
     });
   };
@@ -35,7 +35,7 @@ angular.module('starter')
     }, function(errMsg) {
       var alertPopup = $ionicPopup.alert({
         title: 'Registration failed',
-        template: errMsg
+        template: 'Please try again'
       });
     });
   };
