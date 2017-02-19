@@ -1,7 +1,7 @@
-<ion-view view-title="Dashboard" name="dashboard-view">
+<ion-view view-title="Your Items" name="youritems-view">
 
  	<ion-nav-buttons side="right">
- 		<button class="button button-icon ion-compose" ng-click="modal.show()"></button>
+ 		<button class="button button-icon ion-compose" ng-click="addmodal.show()"></button>
  	</ion-nav-buttons>
 
  	<ion-content class="padding">
@@ -13,14 +13,15 @@
 			<div>
 				<div class="item item-text-wrap left">
 					<dt>{{youritem.name}}</dt>
-					<dd class="small-dd">{{formatDateTime(youritem.expirydate)}}</dd>
+					<dd class="small-dd">{{formatDate(youritem.expirydate)}}</dd>
 				</div>
 			</div>
 			<div class="item right">
 				<button class="button button-light" ng-click="confirmConsume(youritem.id)">
 	      			<i class="ion-close"></i>
 	    		</button>
-	    		<button class="button button-light" ng-click="sharePopUp(youritem.id)">
+	    		<button class="button button-light" ng-click="confirmShare(youritem.id)">
+	    		<!-- <button class="button button-light" ng-click="sharemodal.show(youritem.id)"> -->
 	      			<i class="ion-share"></i>
 	    		</button>
 			</div>
@@ -29,13 +30,13 @@
 
   	</ion-content>
 
-  	<script id="templates/modal.html" type="text/ng-template">
+  	<script id="templates/addmodal.html" type="text/ng-template">
       	
       	<ion-modal-view>
         	
         	<ion-header-bar class="bar bar-header bar-positive">
           		<h1 class="title">New Item</h1>
-          		<button class="button button-clear button-primary" ng-click="modal.hide()">Cancel</button>
+          		<button class="button button-clear button-primary" ng-click="addmodal.hide()">Cancel</button>
     		</ion-header-bar>
 
     		<ion-content class="padding">
@@ -49,17 +50,28 @@
 
 					</label>
 
-            		<!-- <label class="item item-input">
-              			<span class="input-label">Item Name</span>
-              			<input ng-model="newItem.name" type="text">
-        			</label>
-            		<label class="item item-input">
-              			<span class="input-label">Expiry Date</span>
-              			<input ng-model="newItem.expirydate" type="date">
-            		</label> -->
-            		
             		<button class="button button-full button-positive" ng-click="addItem(selectedItem)">Create</button>
+
           		</div>
+        	</ion-content>
+
+      	</ion-modal-view>
+
+    </script>
+
+    <script id="templates/sharemodal.html" type="text/ng-template">
+      	
+      	<ion-modal-view>
+        	
+        	<ion-header-bar class="bar bar-header bar-positive">
+          		<h1 class="title">New Item</h1>
+          		<button class="button button-clear button-primary" ng-click="sharemodal.hide()">Cancel</button>
+    		</ion-header-bar>
+
+    		<ion-content class="padding">
+          		
+          		<div id="map" data-tap-disabled="true"></div>
+
         	</ion-content>
 
       	</ion-modal-view>

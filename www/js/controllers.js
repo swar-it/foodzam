@@ -43,14 +43,9 @@ angular.module('starter')
 })
  
 .controller('InsideCtrl', function($scope, AuthService, API_ENDPOINT, $http, $state) {
+  
   $scope.destroySession = function() {
     AuthService.logout();
-  };
- 
-  $scope.getInfo = function() {
-    $http.get(API_ENDPOINT.url + '/memberinfo').then(function(result) {
-      $scope.memberinfo = result.data.msg;
-    });
   };
  
   $scope.logout = function() {
@@ -89,9 +84,8 @@ angular.module('starter')
 	   });
 	};
 
-	$scope.logout = function() {
-	    AuthService.logout();
-	    $state.go('outside.login');
+	$scope.formatDate = function(date) {
+    	return moment(date).format("Do MMMM YYYY");
 	};
 
 	$scope.formatDateTime = function(date) {
@@ -112,8 +106,18 @@ angular.module('starter')
 		});
 	}
 
-	$scope.sharePopUp = function(itemId) {
-		
+	$scope.confirmShare = function(itemId) {
+
+		$ionicPopup.prompt({
+		   title: 'Enter Your Address',
+		   inputType: 'text',
+		   inputPlaceholder: 'Your address'
+		 }).then(function(address) {
+		   console.log('Your address is', address);
+		   if(address) {
+		   		share(itemId, address);
+		   }
+		 });
 	}
 
 	var consume = function(itemId) {
@@ -127,17 +131,28 @@ angular.module('starter')
 			$scope.youritemList = _.filter($scope.youritemList, function(item) { return item.id !== "XWrRGzEZ5d"; });
 
 		}, function errorCallback(response) {
-			alert("Unable to unpair.");
 		});
 	}
 
-	$ionicModal.fromTemplateUrl('templates/modal.html', {
+	var share = function(itemId, address) {
+
+		$http({
+			method: 'POST',
+			url: API_ENDPOINT.url + '/shareYourItem',
+			data: JSON.stringify({userid: window.localStorage.getItem('yourID'), itemid: itemId, address: address})
+		}).then(function successCallback(response) {
+			
+		}, function errorCallback(response) {
+		});
+	}
+
+	$ionicModal.fromTemplateUrl('templates/addmodal.html', {
 	    scope: $scope
 	  }).then(function(modal) {
-	    $scope.modal = modal;
-	  });
+	    $scope.addmodal = modal;
+	});
 	  
-	  $scope.addItem = function(item) {
+	$scope.addItem = function(item) {
 	  	console.log(item);
 	  	var promise = addItem(window.localStorage.getItem('yourID'), item.value).then(function(result) {
 	  		console.log(result)
@@ -145,10 +160,10 @@ angular.module('starter')
 		}, function(error) {
 			console.log(error);
 		});
-		$scope.modal.hide();
-	  };
+		$scope.addmodal.hide();
+	};
 
-	  function addItem(userid, itemvalue) {
+	function addItem(userid, itemvalue) {
 
 		return $q(function(resolve, reject) {
 
@@ -162,8 +177,48 @@ angular.module('starter')
 				reject(response.data);
 			});
 		});
-	}  
+	}
 
+})
+
+.controller('AvailItemCtrl', function($scope, $state, $http, $q, $ionicPopup, AuthService, API_ENDPOINT, $ionicModal) {
+
+	$http({
+		method: 'POST',
+		url: API_ENDPOINT.url + '/getAvailableItems',
+		data: JSON.stringify({userid: window.localStorage.getItem('yourID')})
+	}).then(function successCallback(response) {
+		console.log(response.data);
+		$scope.availitemList = response.data;
+		console.log($scope.availitemList)
+	}, function errorCallback(response) {
+	});
+
+	$scope.doRefresh = function() {
+
+	    $http({
+	    	method: 'POST',
+			url: API_ENDPOINT.url + '/getAvailableItems',
+			data: JSON.stringify({userid: window.localStorage.getItem('yourID')})
+		}).then(function successCallback(response) {
+			$scope.availitemList = response.data;
+		}).finally(function() {
+	       // Stop the ion-refresher from spinning
+	       $scope.$broadcast('scroll.refreshComplete');
+	   });
+	};
+
+	$scope.formatDate = function(date) {
+    	return moment(date).format("Do MMMM YYYY");
+	};
+
+	$scope.formatDateTime = function(date) {
+		return moment(date).format("Do MMMM YYYY, hh:mm A");
+	};
+
+	$scope.interestClass = function(exercise) {
+		return exercise ? 'ion-ios-heart' : 'ion-ios-heart-outline';
+	};
 })
  
 .controller('AppCtrl', function($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS) {

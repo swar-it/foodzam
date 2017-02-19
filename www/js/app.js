@@ -33,9 +33,18 @@ angular.module('starter', ['ionic'])
   .state('main.youritems', {
     url: 'main/youritems',
     views: {
-        'youritem-tab': {
+        'youritems-tab': {
           templateUrl: 'templates/youritems.html',
           controller: 'YourItemCtrl'
+        }
+    }
+  })
+  .state('main.availitems', {
+    url: 'main/availitems',
+    views: {
+        'availitems-tab': {
+          templateUrl: 'templates/availitems.html',
+          controller: 'AvailItemCtrl'
         }
     }
   });
