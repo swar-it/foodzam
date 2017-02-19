@@ -58,11 +58,11 @@ angular.module('starter')
 			if (response.data.code === 200) {
 				console.log("Success");
           		storeUserCredentials(response.data.token, response.data.userId);
-          		resolve(response.data.message);
+          		resolve(response.data);
 			}
 		}, function errorCallback(response) {
 			console.log("Failure");
-          	reject(response.data.message);
+          	reject(response.data);
 		});
 
       /*$http.post(API_ENDPOINT.url + '/login', user).then(function(result) {
