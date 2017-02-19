@@ -1,5 +1,13 @@
 /* Empty. Add your own CSS if you like */
 
+body {
+	font-family: 'Fira Sans', sans-serif;
+}
+
+ion-header-bar .title.header-item, ion-nav-view .tab-title {
+	font-family: 'Varela Round', sans-serif;
+}
+
 .card .item {
 	border: none;
 }

@@ -36,34 +36,50 @@ angular.module('starter')
  
   var register = function(user) {
     return $q(function(resolve, reject) {
-      $http.post(API_ENDPOINT.url + '/signup', user).then(function(result) {
+
+
+      $http({
+       method: 'POST',
+       url: API_ENDPOINT.url + '/signup',
+       data: JSON.stringify(user)
+      }).then(function successCallback(response) {
+        if (response.data.code === 200) {
+          console.log("Success");
+          resolve(response.data);
+         }
+      }, function errorCallback(response) {
+           console.log("Failure");
+            reject(response.data);
+      });
+
+      /*$http.post(API_ENDPOINT.url + '/signup', user).then(function(response) {
         if (result.data.success) {
           resolve(result.data.msg);
         } else {
           reject(result.data.msg);
         }
-      });
+      });*/
+      
     });
   };
  
   var login = function(user) {
     return $q(function(resolve, reject) {
-    	console.log(user);
     	
     	$http({
-			method: 'POST',
-			url: API_ENDPOINT.url + '/login',
-			data: JSON.stringify(user)
-		}).then(function successCallback(response) {
-			if (response.data.code === 200) {
-				console.log("Success");
-          		storeUserCredentials(response.data.token, response.data.userId);
-          		resolve(response.data);
-			}
-		}, function errorCallback(response) {
-			console.log("Failure");
+			 method: 'POST',
+			 url: API_ENDPOINT.url + '/login',
+			 data: JSON.stringify(user)
+		  }).then(function successCallback(response) {
+  			if (response.data.code === 200) {
+				  console.log("Success");
+      		storeUserCredentials(response.data.token, response.data.userId);
+      		resolve(response.data);
+			   }
+		  }, function errorCallback(response) {
+			     console.log("Failure");
           	reject(response.data);
-		});
+		  });
 
       /*$http.post(API_ENDPOINT.url + '/login', user).then(function(result) {
         if (result.data.code === 200) {

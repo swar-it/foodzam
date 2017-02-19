@@ -13,7 +13,7 @@ angular.module('starter')
       $state.go('main.youritems', {}, {reload: true});
     }, function(errMsg) {
       var alertPopup = $ionicPopup.alert({
-        title: 'Login failed!',
+        title: 'Login failed',
         template: errMsg
       });
     });
@@ -30,12 +30,11 @@ angular.module('starter')
     AuthService.register($scope.user).then(function(msg) {
       $state.go('outside.login');
       var alertPopup = $ionicPopup.alert({
-        title: 'Register success!',
-        template: msg
+        title: 'Registration successful',
       });
     }, function(errMsg) {
       var alertPopup = $ionicPopup.alert({
-        title: 'Register failed!',
+        title: 'Registration failed',
         template: errMsg
       });
     });
@@ -54,10 +53,23 @@ angular.module('starter')
   };
 })
 
-.controller('YourItemCtrl', function($scope, $state, $http, $q, $ionicPopup, AuthService, API_ENDPOINT, $ionicModal) {
+.controller('YourItemCtrl', function($scope, $state, $http, $q, $ionicPopup, AuthService, API_ENDPOINT, $ionicModal, $cordovaGeolocation) {
 
 	$scope.itemOptions = [{name: "Apple", value :"apple"}, {name: "Banana", value :"banana"}, {name: "Bread", value :"bread"}, {name: "Chicken", value :"chicken"}, {name: "Grapes", value :"grapes"}, {name: "Tofu", value :"tofu"}];
 	$scope.selectedItem = $scope.itemOptions[3];
+
+	var posOptions = {timeout: 10000, enableHighAccuracy: false};
+
+	$cordovaGeolocation
+	.getCurrentPosition(posOptions)
+	
+   	.then(function (position) {
+   		var lat  = position.coords.latitude
+   		var long = position.coords.longitude
+   		alert(lat + '   ' + long)
+   	}, function(err) {
+   		console.log(err)
+   	});
 
 	$http({
 		method: 'POST',

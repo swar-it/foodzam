@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic'])
+angular.module('starter', ['ionic', 'ngCordova'])
  
 .config(function($stateProvider, $urlRouterProvider) {
  
@@ -54,6 +54,10 @@ angular.module('starter', ['ionic'])
  
 .run(function ($rootScope, $state, AuthService, AUTH_EVENTS) {
   $rootScope.$on('$stateChangeStart', function (event,next, nextParams, fromState) {
+    $rootScope.logout = function() {
+      AuthService.logout();
+      $state.go('outside.login');
+    };
     if (!AuthService.isAuthenticated()) {
       console.log(next.name);
       if (next.name !== 'outside.login' && next.name !== 'outside.register') {

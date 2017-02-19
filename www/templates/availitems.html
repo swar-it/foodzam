@@ -1,8 +1,8 @@
 <ion-view view-title="Available Items" name="availitems-view">
 
-	<ion-nav-buttons side="right">
+	<!-- <ion-nav-buttons side="right">
  		<button class="button button-icon ion-compose" ng-click="addmodal.show()"></button>
- 	</ion-nav-buttons>
+ 	</ion-nav-buttons> -->
 
  	<ion-content class="padding">
 
@@ -13,7 +13,7 @@
 			<div>
 				<div class="item item-text-wrap left">
 					<dt>{{availitem.name}}</dt>
-					<dd class="small-dd">{{formatDate(availitem.expirydate)}}</dd>
+					<dd class="small-dd">{{availitem.expirydate}}</dd>
 					<dd class="small-dd">{{availitem.location.latitude}}, {{availitem.location.longitude}}</dd>
 					<dd class="small-dd">{{availitem.interested}}</dd>
 				</div>
@@ -23,8 +23,10 @@
 	      			<i ng-class="interestClass(availitem.interested)"></i>
 	    		</button>
 	    		<button class="button button-light" ng-click="confirmShare(availitem.id)">
-	    		<!-- <button class="button button-light" ng-click="sharemodal.show(youritem.id)"> -->
-	      			<i class="ion-share"></i>
+	      			<i class="ion-map"></i>
+	    		</button>
+	    		<button class="button button-light" ng-click="confirmShare(availitem.id)">
+	      			<i class="ion-person"></i>
 	    		</button>
 			</div>
 
