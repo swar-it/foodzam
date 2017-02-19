@@ -59,7 +59,10 @@ angular.module('starter')
   };
 })
 
-.controller('YourItemCtrl', function($scope, $state, $http, $ionicPopup, AuthService, API_ENDPOINT) {
+.controller('YourItemCtrl', function($scope, $state, $http, $q, $ionicPopup, AuthService, API_ENDPOINT, $ionicModal) {
+
+	$scope.itemOptions = [{name: "Apple", value :"apple"}, {name: "Banana", value :"banana"}, {name: "Bread", value :"bread"}, {name: "Chicken", value :"chicken"}, {name: "Grapes", value :"grapes"}, {name: "Tofu", value :"tofu"}];
+	$scope.selectedItem = $scope.itemOptions[3];
 
 	$http({
 		method: 'POST',
@@ -109,6 +112,10 @@ angular.module('starter')
 		});
 	}
 
+	$scope.sharePopUp = function(itemId) {
+		
+	}
+
 	var consume = function(itemId) {
 
 		$http({
@@ -123,6 +130,39 @@ angular.module('starter')
 			alert("Unable to unpair.");
 		});
 	}
+
+	$ionicModal.fromTemplateUrl('templates/modal.html', {
+	    scope: $scope
+	  }).then(function(modal) {
+	    $scope.modal = modal;
+	  });
+	  
+	  $scope.addItem = function(item) {
+	  	console.log(item);
+	  	var promise = addItem(window.localStorage.getItem('yourID'), item.value).then(function(result) {
+	  		console.log(result)
+			$scope.youritemList.push(result);
+		}, function(error) {
+			console.log(error);
+		});
+		$scope.modal.hide();
+	  };
+
+	  function addItem(userid, itemvalue) {
+
+		return $q(function(resolve, reject) {
+
+			$http({
+				method: 'POST',
+				url: API_ENDPOINT.url + '/addYourItem',
+				data: JSON.stringify({userid: userid, itemvalue: itemvalue})
+			}).then(function successCallback(response) {
+				resolve(response.data);
+			}, function errorCallback(response) {
+				reject(response.data);
+			});
+		});
+	}  
 
 })
  
