@@ -18,10 +18,26 @@ angular.module('starter', ['ionic'])
     templateUrl: 'templates/register.html',
     controller: 'RegisterCtrl'
   })
-  .state('inside', {
+
+  /*.state('inside', {
     url: '/inside',
     templateUrl: 'templates/inside.html',
     controller: 'InsideCtrl'
+  })*/
+
+  .state('main', {
+    url: '/',
+    abstract: true,
+    templateUrl: 'templates/main.html'
+  })
+  .state('main.youritems', {
+    url: 'main/youritems',
+    views: {
+        'youritem-tab': {
+          templateUrl: 'templates/youritems.html',
+          controller: 'YourItemCtrl'
+        }
+    }
   });
  
   $urlRouterProvider.otherwise('/outside/login');

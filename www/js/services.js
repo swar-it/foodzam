@@ -2,6 +2,7 @@ angular.module('starter')
  
 .service('AuthService', function($q, $http, API_ENDPOINT) {
   var LOCAL_TOKEN_KEY = 'yourTokenKey';
+  var LOCAL_ID = 'yourID';
   var isAuthenticated = false;
   var authToken;
  
@@ -12,8 +13,9 @@ angular.module('starter')
     }
   }
  
-  function storeUserCredentials(token) {
+  function storeUserCredentials(token, userId) {
     window.localStorage.setItem(LOCAL_TOKEN_KEY, token);
+    window.localStorage.setItem(LOCAL_ID, userId);
     useCredentials(token);
   }
  
@@ -46,24 +48,58 @@ angular.module('starter')
  
   var login = function(user) {
     return $q(function(resolve, reject) {
-      $http.post(API_ENDPOINT.url + '/login', user).then(function(result) {
+    	console.log(user);
+    	
+    	$http({
+			method: 'POST',
+			url: API_ENDPOINT.url + '/login',
+			data: JSON.stringify(user)
+		}).then(function successCallback(response) {
+			if (response.data.code === 200) {
+				console.log("Success");
+          		storeUserCredentials(response.data.token, response.data.userId);
+          		resolve(response.data.message);
+			}
+		}, function errorCallback(response) {
+			console.log("Failure");
+          	reject(response.data.message);
+		});
+
+      /*$http.post(API_ENDPOINT.url + '/login', user).then(function(result) {
         if (result.data.code === 200) {
+        	console.log("Success");
           storeUserCredentials(result.data.token);
-          resolve(result.data.msg);
+          resolve(result.data.message);
         } else {
-          reject(result.data.msg);
+        	console.log("Failure");
+          reject(result.data.message);
         }
-      });
+      });*/
     });
   };
  
   var logout = function() {
   	return $q(function(resolve, reject) {
-      $http.post(API_ENDPOINT.url + '/logout').then(function(result) {
-        if (result.data.code === 200) {
+
+  		$http({
+			method: 'POST',
+			url: API_ENDPOINT.url + '/logout',
+			data: JSON.stringify({sessiontoken: window.localStorage.getItem(LOCAL_TOKEN_KEY)})
+		}).then(function successCallback(response) {
+			if (response.data.code === 200) {
+				console.log("Success");
+          		destroyUserCredentials();
+			}
+		}, function errorCallback(response) {
+			console.log("Failure");
+		});
+
+
+      /*$http.post(API_ENDPOINT.url + '/logout').then(function(result) {
+        // if (result.data.code === 200) {
     		destroyUserCredentials();
-    	}
-      });
+    	// }
+      });*/
     });
   };
  

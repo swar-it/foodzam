@@ -1,0 +1,29 @@
+<ion-view view-title="Dashboard" name="dashboard-view">
+
+  <ion-nav-buttons side="right">
+    <button class="button icon-left ion-log-out button-stable" ng-click="logout()">Logout</button>
+  </ion-nav-buttons>
+ 
+  <ion-content class="padding">
+
+  	<ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+
+	<div class="card" ng-repeat="youritem in youritemList | filter:{ consumed: false } | orderBy: 'expirydate'" data-obj-id="{{youritem.id}}">
+
+		<div>
+			<div class="item item-text-wrap left">
+				<dt>{{youritem.name}}</dt>
+				<dd class="small-dd">{{formatDateTime(youritem.expirydate)}}</dd>
+			</div>
+		</div>
+		<div class="item right">
+			<button class="button button-light" ng-click="confirmConsume(youritem.id)">
+      			<i class="ion-close-round"></i>
+    		</button>
+		</div>
+
+	</div>
+
+  </ion-content>
+
+</ion-view>

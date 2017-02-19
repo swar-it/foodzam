@@ -1,1 +1,13 @@
 /* Empty. Add your own CSS if you like */
+
+.card .item {
+	border: none;
+}
+
+.card .item.left {
+	float: left;
+}
+
+.card .item.right {
+	float: right;
+}
