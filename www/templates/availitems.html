@@ -15,17 +15,16 @@
 					<dt>{{availitem.name}}</dt>
 					<dd class="small-dd">{{availitem.expirydate}}</dd>
 					<dd class="small-dd">{{availitem.location.latitude}}, {{availitem.location.longitude}}</dd>
-					<dd class="small-dd">{{availitem.interested}}</dd>
 				</div>
 			</div>
 			<div class="item right">
-				<button class="button button-light" ng-click="confirmConsume(availitem.id)">
+				<button class="button button-light" ng-click="changeInterest(availitem.id)">
 	      			<i ng-class="interestClass(availitem.interested)"></i>
 	    		</button>
-	    		<button class="button button-light" ng-click="confirmShare(availitem.id)">
+	    		<!-- <button class="button button-light" ng-click="viewlocation.show()">
 	      			<i class="ion-map"></i>
-	    		</button>
-	    		<button class="button button-light" ng-click="confirmShare(availitem.id)">
+	    		</button> -->
+	    		<button class="button button-light" ng-click="viewContact(availitem.ownername, availitem.ownercontact)">
 	      			<i class="ion-person"></i>
 	    		</button>
 			</div>

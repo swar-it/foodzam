@@ -8,7 +8,11 @@
 
   		<ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
 
-		<div class="card" ng-repeat="youritem in youritemList | filter:{ consumed: false } | orderBy: 'expirydate'" data-obj-id="{{youritem.id}}">
+  		<!-- <button class="button button-full button-positive" ng-click="scheduleDelayedNotification()">
+          Show Local Notification After 10 sec (2)
+        </button>   -->
+
+		<div class="card" ng-repeat="youritem in youritemList | orderBy: 'expirydate'" data-obj-id="{{youritem.id}}">
 
 			<div>
 				<div class="item item-text-wrap left">
@@ -70,7 +74,7 @@
 
     		<ion-content class="padding">
           		
-          		<div id="map" data-tap-disabled="true"></div>
+          		<!-- <div id="map" data-tap-disabled="true"></div> -->
 
         	</ion-content>
 

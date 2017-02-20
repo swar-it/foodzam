@@ -32,6 +32,7 @@ angular.module('starter')
     isAuthenticated = false;
     $http.defaults.headers.common.Authorization = undefined;
     window.localStorage.removeItem(LOCAL_TOKEN_KEY);
+    window.localStorage.removeItem(LOCAL_ID);
   }
  
   var register = function(user) {
@@ -44,7 +45,6 @@ angular.module('starter')
        data: JSON.stringify(user)
       }).then(function successCallback(response) {
         if (response.data.code === 200) {
-          console.log("Success");
           resolve(response.data);
          }
       }, function errorCallback(response) {
@@ -72,12 +72,10 @@ angular.module('starter')
 			 data: JSON.stringify(user)
 		  }).then(function successCallback(response) {
   			if (response.data.code === 200) {
-				  console.log("Success");
       		storeUserCredentials(response.data.token, response.data.userId);
       		resolve(response.data);
 			   }
 		  }, function errorCallback(response) {
-			     console.log("Failure");
            console.log(response.data);
           	reject(response.data);
 		  });
@@ -104,8 +102,7 @@ angular.module('starter')
 			data: JSON.stringify({sessiontoken: window.localStorage.getItem(LOCAL_TOKEN_KEY)})
 		}).then(function successCallback(response) {
 			if (response.data.code === 200) {
-				console.log("Success");
-          		destroyUserCredentials();
+    		destroyUserCredentials();
 			}
 		}, function errorCallback(response) {
 			console.log("Failure");
