@@ -1,4 +1,4 @@
-angular.module('starter', ['ionic', 'ngCordova', 'ngMap'])
+angular.module('starter', ['ionic', 'ngCordova'])
  
 .config(function($stateProvider, $urlRouterProvider) {
  

@@ -1,6 +1,9 @@
 <ion-view title="Create a new account">
-  <ion-content class="padding">
+  
+  <ion-content class="form-box padding">
+
     <div class="list">
+
       <label class="item item-input">
         <input type="text" placeholder="Name" ng-model="user.name">
       </label>
@@ -15,9 +18,12 @@
         <!-- <input type="password" placeholder="Password" ng-model="user.password" ui-show-password required> -->
       </label>
     </div>
-    <button class="button button-full button-positive" ng-click="signup()">
-      Sign up
-    </button>
-    <button class="button button-positive button-clear button-full" ui-sref="outside.login">Back to login</button>
+    
+    <div class="buttons">
+    	<button class="button button-full button-positive" ng-click="signup()">Sign up</button>
+    	<button class="button button-positive button-clear button-full" ui-sref="outside.login">Back to login</button>
+    </div>
+
   </ion-content>
+  
 </ion-view>
