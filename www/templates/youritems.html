@@ -18,6 +18,9 @@
 				<div class="item item-text-wrap left">
 					<dt>{{youritem.name}}</dt>
 					<dd class="small-dd">{{youritem.expirydate}}</dd>
+					<!-- <dd class="small-dd" ng-if="youritem.expired === true"><span class="red-color">Expired</span></dd> -->
+					<dd class="small-dd" ng-if="youritem.expired === true"><span class="alert-heading">Expired</span></dd>
+
 				</div>
 			</div>
 			<div class="item right">

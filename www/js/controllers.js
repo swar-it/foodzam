@@ -63,6 +63,7 @@ angular.module('starter')
 		data: JSON.stringify({userid: window.localStorage.getItem('yourID')})
 	}).then(function successCallback(response) {
 		$scope.youritemList = response.data;
+		console.log($scope.youritemList);
 	}, function errorCallback(response) {
 	});
 

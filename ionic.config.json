@@ -4,7 +4,7 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "http://52.230.27.118:8080/api"
+      "proxyUrl": "http://localhost:8080/api"
     }
   ]
 }
