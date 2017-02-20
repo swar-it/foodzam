@@ -4,7 +4,7 @@ body {
 	font-family: 'Fira Sans', sans-serif;
 }
 
-ion-header-bar .title.header-item, ion-nav-view .tab-title, button, .popup-title {
+ion-header-bar .title.header-item, ion-nav-view .tab-title, .popup-title {
 	font-family: 'Varela Round', sans-serif;
 }
 
@@ -16,7 +16,7 @@ ion-header-bar .title.header-item, ion-nav-view .tab-title, button, .popup-title
     margin-bottom: 20px;
 }
 
-.form-box .list label input {
+.form-box .list label input, button {
     font-family: 'Fira Sans', sans-serif;
 }
 
@@ -61,4 +61,29 @@ span.alert-heading {
     margin: 5px auto;
     text-align: center;
 	background-color: #C02539;
+}
+
+.buttons {
+	text-align: center;
+}
+
+.buttons button.login-button, .buttons button.register-button {
+	color: #FFF;
+    margin-top: 15px;
+    box-shadow: none;
+    background-color: #D0021B;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 0;
+    height: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 0 50px;
+}
+
+.buttons button.login-link, .buttons button.register-link {
+	font-size: 12px;
+	color: #9B9B9B;
 }
